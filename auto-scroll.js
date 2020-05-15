@@ -1,4 +1,6 @@
 let interval;
+let clearCounterTimeout;
+let counter = 0;
 let m_startInterval = function() {
     if(interval) return;
     interval = window.setInterval(function() {
@@ -17,11 +19,14 @@ window.addEventListener('keyup', function(e) {
     if(e.key == startKey) m_startInterval();
     if(e.key == stopKey) m_clear();
 });
-let lastScrollTop = 0;
-window.addEventListener('scroll', function(e) {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if(scrollTop < lastScrollTop) {
+window.addEventListener('click', function(e) {
+    counter++;
+    if(counter === 3) {
         m_clear();
+        counter = 0;
+    } else {
+        clearCounterTimeout = window.setTimeout(function() {
+            counter = 0;
+        }, 1000);
     }
-    lastScrollTop = scrollTop;
 });
