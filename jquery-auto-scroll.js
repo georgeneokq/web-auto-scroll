@@ -3,11 +3,17 @@ let interval;
 let clearCounterTimeout;
 let counter = 0;
 let scrollSpeed = 800  // milliseconds
+let previousScrollHeight = 0;
 let m_startInterval = function() {
     if(interval) return;
     interval = window.setInterval(function() {
+      const currentScrollHeight = document.documentElement.scrollHeight;
+      if(currentScrollHeight == previousScrollHeight)
+        return
+      previousScrollHeight = currentScrollHeight
+
       $('html, body').animate({
-        scrollTop: document.documentElement.scrollHeight
+        scrollTop: currentScrollHeight
       }, scrollSpeed)
     }, scrollSpeed + 100);
 };
