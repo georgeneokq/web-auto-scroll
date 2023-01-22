@@ -1,20 +1,15 @@
-/*
- * Problem with instant scrolling using window.scrollTo: scroll speed too slow.
- * Try using jquery-auto-scroll.js if you require smooth scrolling.
- */
+/* Ensure jQuery is loaded before using this script */
 let interval;
 let clearCounterTimeout;
 let counter = 0;
-let instantScroll = true;  // In case some sites like instagram don't process instant scrolls well
+let scrollSpeed = 800  // milliseconds
 let m_startInterval = function() {
     if(interval) return;
     interval = window.setInterval(function() {
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          left: 0,
-          behavior: instantScroll ? 'instant' : 'smooth'
-        });
-    }, 100);
+      $('html, body').animate({
+        scrollTop: document.documentElement.scrollHeight
+      }, scrollSpeed)
+    }, scrollSpeed + 100);
 };
 m_startInterval();
 let m_clear = function() {
